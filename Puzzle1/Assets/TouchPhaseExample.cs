@@ -5,6 +5,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
+
 
 public class TouchPhaseExample : MonoBehaviour
 {
@@ -17,6 +19,14 @@ public class TouchPhaseExample : MonoBehaviour
     public Text m_Text;
     string message;
     public GameObject Prefab;
+    public GameObject Prefab1;
+    public GameObject Prefab2;
+    public GameObject Prefab3;
+    List<GameObject> prprp = new List<GameObject>();
+    public string test;
+    
+
+
     void Update()
     {
         //Update the Text on the screen depending on current TouchPhase, and the current direction vector
@@ -24,13 +34,17 @@ public class TouchPhaseExample : MonoBehaviour
         
         foreach(Touch touch in Input.touches)
         {
-            if (touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Moved)
             {
+                Debug.Log(touch.fingerId);
+                
                   //new Vector2(screenspace.x, Screen.height - screenspace.y) // where screenspace is the Vector2 in screenspace coordinates
                 worldPosition = Camera.main.ScreenToWorldPoint(touch.position);
                 Instantiate(Prefab, new Vector3(worldPosition.x, worldPosition.y, -1), Quaternion.identity);
             }
         }
+
+        
         
         // Track a single touch as a direction control.
         if (Input.touchCount > 0)
