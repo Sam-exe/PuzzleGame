@@ -22,7 +22,7 @@ public class TouchPhaseExample : MonoBehaviour
     public GameObject Prefab1;
     public GameObject Prefab2;
     public GameObject Prefab3;
-    public List<GameObject> prprp = new List<GameObject>();
+    public List<GameObject> objectsList = new List<GameObject>();
     public List<Transform> parentlist = new List<Transform>();
     public List<GameObject> finger0 = new List<GameObject>();
     public List<int> finger1 = new List<int>();
@@ -40,20 +40,34 @@ public class TouchPhaseExample : MonoBehaviour
 
     public GameObject test;
     
-
     
     void Update()
     {
         //Update the Text on the screen depending on current TouchPhase, and the current direction vector
         m_Text.text = "Touch : " + startPos + "in direction" + direction;
-        Debug.Log(finger0.Count);
+
         foreach(Touch touch in Input.touches)
         {
+            
+
             worldPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            int numChildren = parentlist[touch.fingerId].transform.childCount;             // get child count
-            GameObject test = Instantiate(prprp[touch.fingerId], new Vector3(worldPosition.x, worldPosition.y, -1), Quaternion.identity, parentlist[touch.fingerId]);
-            Destroy(parentlist[touch.fingerId].transform.GetChild(numChildren - 1).gameObject);
-            // }
+            
+
+            float distanceToClosestEnemy = Mathf.Infinity;
+            GameObject closestEnemy = null;
+            GameObject[] allEnemies = GameObject.FindObjectsOfType<GameObject>();
+
+            foreach (GameObject currentEnemy in allEnemies) {
+                float distanceToEnemy = (currentEnemy.transform.position - new Vector3(worldPosition.x, worldPosition.y, -1)).sqrMagnitude;
+                if (distanceToEnemy < distanceToClosestEnemy) {
+                    distanceToClosestEnemy = distanceToEnemy;
+                    closestEnemy = currentEnemy;
+                    
+                }
+            }
+            int numChildren = parentlist[int.Parse(closestEnemy.tag)].transform.childCount;
+            GameObject test = Instantiate(objectsList[int.Parse(closestEnemy.tag)], new Vector3(worldPosition.x, worldPosition.y, -1), Quaternion.identity, parentlist[int.Parse(closestEnemy.tag)]);
+            Destroy(parentlist[int.Parse(closestEnemy.tag)].transform.GetChild(numChildren - 1).gameObject);
         }
 
         
