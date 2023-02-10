@@ -22,26 +22,38 @@ public class TouchPhaseExample : MonoBehaviour
     public GameObject Prefab1;
     public GameObject Prefab2;
     public GameObject Prefab3;
-    List<GameObject> prprp = new List<GameObject>();
-    public string test;
+    public List<GameObject> prprp = new List<GameObject>();
+    public List<Transform> parentlist = new List<Transform>();
+    public List<GameObject> finger0 = new List<GameObject>();
+    public List<int> finger1 = new List<int>();
+    public List<GameObject> finger2 = new List<GameObject>();
+    public List<GameObject> finger3 = new List<GameObject>();
+    public GameObject parent;
+    public GameObject parent1;
+    public GameObject parent2;
+    public GameObject parent3;
+
+
+    public List<int> test2 = new List<int>();
+    public List<GameObject> test3 = new List<GameObject>();
+
+
+    public GameObject test;
     
 
-
+    
     void Update()
     {
         //Update the Text on the screen depending on current TouchPhase, and the current direction vector
         m_Text.text = "Touch : " + startPos + "in direction" + direction;
-        
+        Debug.Log(finger0.Count);
         foreach(Touch touch in Input.touches)
         {
-            if (touch.phase == TouchPhase.Moved)
-            {
-                Debug.Log(touch.fingerId);
-                
-                  //new Vector2(screenspace.x, Screen.height - screenspace.y) // where screenspace is the Vector2 in screenspace coordinates
-                worldPosition = Camera.main.ScreenToWorldPoint(touch.position);
-                Instantiate(Prefab, new Vector3(worldPosition.x, worldPosition.y, -1), Quaternion.identity);
-            }
+            worldPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            int numChildren = parentlist[touch.fingerId].transform.childCount;             // get child count
+            GameObject test = Instantiate(prprp[touch.fingerId], new Vector3(worldPosition.x, worldPosition.y, -1), Quaternion.identity, parentlist[touch.fingerId]);
+            Destroy(parentlist[touch.fingerId].transform.GetChild(numChildren - 1).gameObject);
+            // }
         }
 
         
@@ -78,3 +90,4 @@ public class TouchPhaseExample : MonoBehaviour
         }
     }
 }
+        

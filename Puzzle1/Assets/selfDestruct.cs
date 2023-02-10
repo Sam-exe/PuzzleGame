@@ -11,7 +11,7 @@ public class selfDestruct : MonoBehaviour
     void Start()
     {
         if (doDistroy){
-            Destroy(me, timeToDestroy);
+            //Destroy(me, timeToDestroy);
         }
         
     }
