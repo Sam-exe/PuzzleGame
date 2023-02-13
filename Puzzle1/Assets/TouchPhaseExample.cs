@@ -18,20 +18,8 @@ public class TouchPhaseExample : MonoBehaviour
     public Text m_Text2;
     public Text m_Text;
     string message;
-    public GameObject Prefab;
-    public GameObject Prefab1;
-    public GameObject Prefab2;
-    public GameObject Prefab3;
     public List<GameObject> objectsList = new List<GameObject>();
     public List<Transform> parentlist = new List<Transform>();
-    public List<GameObject> finger0 = new List<GameObject>();
-    public List<int> finger1 = new List<int>();
-    public List<GameObject> finger2 = new List<GameObject>();
-    public List<GameObject> finger3 = new List<GameObject>();
-    public GameObject parent;
-    public GameObject parent1;
-    public GameObject parent2;
-    public GameObject parent3;
 
 
     public List<int> test2 = new List<int>();
