@@ -10,7 +10,9 @@ public class Rope : MonoBehaviour
     private float ropeSegLen = 0.25f;
     private int segmentLength = 35;
     private float lineWidth = 0.1f;
-    [SerializeField] private Tranform Startpoint;   
+    [SerializeField] private Transform startPoint;
+    [SerializeField] private Transform Endpoint;
+
     // Use this for initialization
     void Start()
     {
