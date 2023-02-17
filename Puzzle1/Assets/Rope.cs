@@ -10,6 +10,9 @@ public class Rope : MonoBehaviour
     private float ropeSegLen = 0.25f;
     private int segmentLength = 35;
     private float lineWidth = 0.1f;
+    public Transform FirstFinger;
+    public Transform SecondFinger;
+
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform Endpoint;
 
@@ -61,10 +64,15 @@ public class Rope : MonoBehaviour
 
     private void ApplyConstraint()
     {
-        //Constrant to Mouse
+        
+
         RopeSegment firstSegment = this.ropeSegments[0];
-        firstSegment.posNow = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        firstSegment.posNow = this.FirstFinger.GetChild(0).position;
         this.ropeSegments[0] = firstSegment;
+
+        RopeSegment endSegment = this.ropeSegments[this.segmentLength - 1];
+        endSegment.posNow = this.SecondFinger.GetChild(0).position;
+        this.ropeSegments[this.segmentLength - 1] = endSegment;
 
         for (int i = 0; i < this.segmentLength - 1; i++)
         {
