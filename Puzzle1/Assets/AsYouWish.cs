@@ -1,36 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using UnityEngine;
- 
-[RequireComponent(typeof(EdgeCollider2D))]
+
 public class AsYouWish : MonoBehaviour
 {
+    LineRenderer rope;
     EdgeCollider2D edgeCollider;
-    LineRenderer myLine;
- 
-    // Start is called before the first frame update
-    void Start()
+
+    Vector3 points;
+    Vector2[] points2 = new Vector2[35];
+
+    private void Start()
     {
-        edgeCollider = this.GetComponent<EdgeCollider2D>();
-        myLine = this.GetComponent<LineRenderer>();
+        edgeCollider = this.gameObject.AddComponent<EdgeCollider2D>();
+        rope = this.gameObject.GetComponent<LineRenderer>();
+
+        getNewPositions();
+
+        edgeCollider.points = points2;
     }
- 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        SetEdgeCollider(myLine);
+        getNewPositions();
+        edgeCollider.offset = new Vector2(-transform.position.x, -transform.position.y);
+        edgeCollider.points = points2;
     }
- 
-    void SetEdgeCollider(LineRenderer lineRenderer)
+
+    void getNewPositions()
     {
-        List<Vector2> edges = new List<Vector2>();
- 
-        for(int point = 0; point<lineRenderer.positionCount; point++)
+        for (int i = 0; i < rope.positionCount; i++)
         {
-            Vector3 lineRendererPoint = lineRenderer.GetPosition(point);
-            edges.Add(new Vector2(lineRendererPoint.x, lineRendererPoint.y));
+            points = rope.GetPosition(i);
+            points2[i] = new Vector2(points.x, points.y);
         }
- 
-        edgeCollider.SetPoints(edges);
     }
 }
