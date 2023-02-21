@@ -36,11 +36,8 @@ public class TouchPhaseExample : MonoBehaviour
 
         foreach(Touch touch in Input.touches)
         {
-            
-
             worldPosition = Camera.main.ScreenToWorldPoint(touch.position);
             
-
             float distanceToClosestEnemy = Mathf.Infinity;
             GameObject closestEnemy = null;
             GameObject[] allEnemies = GameObject.FindObjectsOfType<GameObject>();

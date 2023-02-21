@@ -1,22 +1,23 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using UnityEngine;
 
-public class AsYouWish : MonoBehaviour
+public class LineCollider : MonoBehaviour
 {
     LineRenderer rope;
     EdgeCollider2D edgeCollider;
-
+    BoxCollider2D boxCollider;
     Vector3 points;
     Vector2[] points2 = new Vector2[35];
 
     private void Start()
     {
-        edgeCollider = this.gameObject.AddComponent<EdgeCollider2D>();
+        edgeCollider = this.gameObject.GetComponent<EdgeCollider2D>();
         rope = this.gameObject.GetComponent<LineRenderer>();
-
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
         getNewPositions();
 
         edgeCollider.points = points2;
@@ -35,6 +36,7 @@ public class AsYouWish : MonoBehaviour
         {
             points = rope.GetPosition(i);
             points2[i] = new Vector2(points.x, points.y);
+            
         }
     }
 }

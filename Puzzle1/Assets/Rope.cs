@@ -118,7 +118,7 @@ public class Rope : MonoBehaviour
         {
             ropePositions[i] = this.ropeSegments[i].posNow;
         }
-
+        
         lineRenderer.positionCount = ropePositions.Length;
         lineRenderer.SetPositions(ropePositions);
     }
