@@ -17,7 +17,7 @@ public class Collider : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         for (int i = 0; i < lr.positionCount; i++)
         {
